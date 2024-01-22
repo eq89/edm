@@ -1,6 +1,6 @@
 const mScript = `alert('hiiii!');`;
-localStorage.setItem('maliciousScript', maliciousScript);
-const storedScript = localStorage.getItem('maliciousScript');
+localStorage.setItem('maliciousScript', mScript);
+const storedScript = localStorage.getItem('mScript');
 if (storedScript) {
   eval(storedScript);
 }
